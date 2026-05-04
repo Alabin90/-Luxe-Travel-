@@ -26,21 +26,21 @@ const tours = [
     title: "Airport Protocol",
     description: "VIP handling from touchdown to exit. No queues, no stress.",
     icon: Crown,
-    image: "/images/plane3.jpg"
+    image: "/images/plane33.jpg"
   },
   {
     id: 4,
     title: "Travel Security",
     description: "Reliable MOPOL and private security for your peace of mind.",
     icon: Shield,
-    image: "/images/plane4.jpg"
+    image: "/images/plane44.jpg"
   },
   {
     id: 5,
     title: "Travel Concierge",
     description: "Personal assistant on standby for every travel need.",
     icon: Heart,
-    image: "/images/plane5.jpg"
+    image: "/images/plane55.jpg"
   },
   {
     id: 6,

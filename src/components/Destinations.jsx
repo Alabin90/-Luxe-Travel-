@@ -12,17 +12,15 @@ const destinations = [
     name: "Santorini",
     country: "Greece",
     image: "/images/tour3.jpg",
-    price: "$1,299",
     rating: 4.9,
     category: "Beach",
     description: "White-washed buildings and stunning sunsets over the Aegean Sea."
   },
   {
     id: 2,
-    name: "Bali",
-    country: "Indonesia",
-    image: "/images/tour4.jpg",
-    price: "$1,899",
+    name: "Qatar",
+    country: " Doha",
+    image: "/images/tour44.jpg",
     rating: 4.8,
     category: "Tropical",
     description: "Lush rice terraces, ancient temples, and pristine beaches."
@@ -32,7 +30,6 @@ const destinations = [
     name: "Dubai",
     country: "UAE",
     image: "/images/tour5.jpg",
-    price: "$2,199",
     rating: 5.0,
     category: "Luxury",
     description: "Ultra-modern architecture meets Arabian heritage and desert adventures."
@@ -42,7 +39,6 @@ const destinations = [
     name: "Maldives",
     country: "Maldives",
     image: "/images/tour6.jpg",
-    price: "$3,499",
     rating: 4.9,
     category: "Luxury",
     description: "Crystal clear waters and overwater bungalows."
@@ -52,7 +48,6 @@ const destinations = [
     name: "Paris",
     country: "France",
     image: "/images/tour7.jpg",
-    price: "$1,599",
     rating: 4.7,
     category: "Culture",
     description: "The city of lights, romance, and world-class cuisine."
@@ -62,17 +57,11 @@ const destinations = [
     name: "Cape Town",
     country: "South Africa",
     image: "/images/tour8.jpg",
-    price: "$1,799",
     rating: 4.8,
     category: "Adventure",
     description: "Stunning coastlines, Table Mountain, and safari experiences."
   }
 ];
-
-const scaleIn = {
-  hidden: { opacity: 0, scale: 0.8 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.6, ease: "easeOut" } }
-};
 
 export default function Destinations() {
   const [activeFilter, setActiveFilter] = useState('All');
@@ -104,6 +93,7 @@ export default function Destinations() {
               Handpicked locations offering the finest experiences for discerning travelers.
             </p>
           </div>
+
           <div className="flex flex-wrap gap-2">
             {filters.map((filter) => (
               <motion.button
@@ -123,7 +113,11 @@ export default function Destinations() {
           </div>
         </motion.div>
 
-        <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* ✅ MOBILE: horizontal scroll | DESKTOP: grid */}
+        <motion.div
+          layout
+          className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory pb-4"
+        >
           <AnimatePresence mode='popLayout'>
             {filtered.map((dest, index) => (
               <motion.div
@@ -134,7 +128,9 @@ export default function Destinations() {
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 whileHover={{ y: -10 }}
-                className="group bg-neutral-900 rounded-3xl overflow-hidden border border-amber-500/10 hover:border-amber-500/30 transition-all duration-500"
+
+                // *✅ THIS MAKES SLIDE WORK 
+                className="group min-w-[85%] sm:min-w-[70%] md:min-w-0 bg-neutral-900 rounded-3xl overflow-hidden border border-amber-500/10 hover:border-amber-500/30 transition-all duration-500 snap-center"
               >
                 <div className="relative h-72 overflow-hidden">
                   <Image
@@ -144,25 +140,31 @@ export default function Destinations() {
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+
                   <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full flex items-center gap-1">
                     <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
                     <span className="text-sm font-bold text-black">{dest.rating}</span>
                   </div>
+
                   <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
                     <p className="text-white/90 text-sm">{dest.description}</p>
                   </div>
                 </div>
+
                 <div className="p-6">
                   <div className="flex items-center gap-2 text-amber-400 mb-2">
                     <MapPin className="w-4 h-4" />
                     <span className="text-sm font-medium">{dest.country}</span>
                   </div>
+
                   <h3 className="text-2xl font-bold text-white mb-2">{dest.name}</h3>
+
                   <div className="flex items-center justify-between mt-4 pt-4 border-t border-neutral-800">
                     <div>
                       <span className="text-neutral-500 text-sm">From</span>
                       <p className="text-xl font-bold text-amber-400">{dest.price}</p>
                     </div>
+
                     <motion.button
                       whileHover={{ scale: 1.1, x: 5 }}
                       whileTap={{ scale: 0.9 }}
