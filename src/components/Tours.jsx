@@ -1,10 +1,11 @@
-// app/sections/Tours.tsx
 'use client';
 
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Globe, Car, Shield, Crown, Heart, MapPin, Plane, Hotel } from 'lucide-react';
 import Image from 'next/image';
+
+const wine = '#722F37';
 
 const tours = [
   {
@@ -65,23 +66,16 @@ const tours = [
   }
 ];
 
-const scaleIn = {
-  hidden: { opacity: 0, scale: 0.8 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.6, ease: "easeOut" } }
-};
-
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.2 } }
-};
-
 export default function Tours() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="tours" className="py-24 bg-neutral-950">
+    <section id="tours" className="py-24 bg-white overflow-hidden">
+
       <div className="max-w-7xl mx-auto px-6">
+
+        {/* HEADER */}
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 40 }}
@@ -89,52 +83,78 @@ export default function Tours() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <span className="text-amber-400 font-semibold text-sm uppercase tracking-wider">Our Services</span>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mt-3 mb-4">
+          <span className="text-sm font-semibold uppercase tracking-wider" style={{ color: wine }}>
+            Our Services
+          </span>
+
+          <h2 className="text-4xl md:text-5xl font-bold text-black mt-3 mb-4">
             Complete Travel Solutions
           </h2>
-          <p className="text-neutral-400 max-w-2xl mx-auto text-lg">
+
+          <p className="text-gray-500 max-w-2xl mx-auto text-lg">
             Everything you need for a seamless, luxurious journey.
           </p>
         </motion.div>
 
+      </div>
+
+      {/* 🔥 MARQUEE TRACK (USING SAME CARD DESIGN) */}
+      <div className="relative w-full overflow-hidden">
+
         <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+          className="flex gap-6 w-max"
+          animate={{
+            x: ['0%', '-50%']
+          }}
+          transition={{
+            duration: 30,
+            ease: "linear",
+            repeat: Infinity
+          }}
         >
-          {tours.map((tour, index) => (
-            <motion.div
-              key={tour.id}
-              variants={scaleIn}
-              whileHover={{ y: -10, transition: { duration: 0.3 } }}
-              className="group cursor-pointer"
+
+          {[...tours, ...tours].map((tour, index) => (
+            <div
+              key={index}
+              className="group cursor-pointer w-[320px] shrink-0"
             >
-              <div className="relative overflow-hidden rounded-3xl bg-neutral-900 aspect-[4/5] border border-amber-500/10 hover:border-amber-500/30 transition-colors">
+              <div className="relative overflow-hidden rounded-3xl bg-white aspect-[4/5] border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-500">
+
+                {/* IMAGE */}
                 <Image
                   src={tour.image}
                   alt={tour.title}
                   fill
-                  className="object-cover opacity-50 group-hover:opacity-70 transition-opacity duration-500 group-hover:scale-110"
+                  className="object-cover opacity-60 group-hover:opacity-80 transition-all duration-500 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+
+                {/* GRADIENT */}
+                <div className="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent" />
+
+                {/* CONTENT (UNCHANGED CARD STRUCTURE) */}
                 <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <motion.div
-                    whileHover={{ rotate: 360 }}
-                    transition={{ duration: 0.8 }}
-                    className="w-14 h-14 rounded-xl bg-amber-500 flex items-center justify-center mb-4 shadow-lg shadow-amber-500/30"
-                  >
-                    <tour.icon className="w-7 h-7 text-black" />
-                  </motion.div>
-                  <h3 className="text-white text-lg font-bold mb-2">{tour.title}</h3>
-                  <p className="text-neutral-400 text-sm leading-relaxed">{tour.description}</p>
+
+                  <div className="w-14 h-14 rounded-xl bg-white border border-gray-200 flex items-center justify-center mb-4 shadow-sm">
+                    <tour.icon className="w-7 h-7" style={{ color: wine }} />
+                  </div>
+
+                  <h3 className="text-black text-lg font-bold mb-2">
+                    {tour.title}
+                  </h3>
+
+                  <p className="text-gray-500 text-sm leading-relaxed">
+                    {tour.description}
+                  </p>
+
                 </div>
+
               </div>
-            </motion.div>
+            </div>
           ))}
+
         </motion.div>
       </div>
+
     </section>
   );
 }

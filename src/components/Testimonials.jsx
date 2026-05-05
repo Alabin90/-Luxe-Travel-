@@ -4,6 +4,8 @@ import { useState, useRef, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { Star, Quote } from 'lucide-react';
 
+const wine = '#722F37';
+
 const testimonials = [
   {
     id: 1,
@@ -45,7 +47,6 @@ export default function Testimonials() {
 
   const [index, setIndex] = useState(0);
 
-  // ✅ FIXED useEffect (this is what was breaking your app before)
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % testimonials.length);
@@ -67,87 +68,101 @@ export default function Testimonials() {
   const current = testimonials[index];
 
   return (
-    <section className="py-24 bg-black relative overflow-hidden">
+    <section className="py-24 bg-white relative overflow-hidden">
+
       <div className="max-w-4xl mx-auto px-6 relative z-10">
 
-        {/* Heading */}
+        {/* HEADER */}
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           className="text-center mb-16"
         >
-          <span className="text-amber-400 font-semibold text-sm uppercase tracking-wider">
+          <span className="text-sm font-semibold uppercase tracking-wider" style={{ color: wine }}>
             Testimonials
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mt-3">
+
+          <h2 className="text-4xl md:text-5xl font-bold text-black mt-3">
             What Travelers Say
           </h2>
         </motion.div>
 
-        {/* Carousel */}
+        {/* CAROUSEL */}
         <div className="relative">
 
           <AnimatePresence mode="wait">
+
             <motion.div
               key={index}
               initial={{ opacity: 0, x: 80 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -80 }}
               transition={{ duration: 0.5 }}
-              className="bg-white/5 backdrop-blur-sm border border-amber-500/10 rounded-3xl p-10 text-center"
+              className="bg-white border border-gray-200 shadow-sm rounded-3xl p-10 text-center"
             >
-              <Quote className="w-10 h-10 text-amber-500/20 mx-auto mb-6" />
 
-              {/* Stars */}
+              <Quote className="w-10 h-10 mx-auto mb-6 opacity-20" style={{ color: wine }} />
+
+              {/* STARS */}
               <div className="flex justify-center gap-1 mb-4">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 text-amber-400 fill-amber-400" />
+                  <Star
+                    key={i}
+                    className="w-4 h-4 fill-current"
+                    style={{ color: wine }}
+                  />
                 ))}
               </div>
 
-              {/* Text */}
-              <p className="text-white/80 mb-6 leading-relaxed text-lg max-w-2xl mx-auto">
+              {/* TEXT */}
+              <p className="text-gray-600 mb-6 leading-relaxed text-lg max-w-2xl mx-auto">
                 “{current?.text}”
               </p>
 
-              {/* Name */}
-              <h4 className="font-bold text-white text-lg">
+              {/* NAME */}
+              <h4 className="font-bold text-black text-lg">
                 {current?.name}
               </h4>
 
-              {/* Date */}
+              {/* DATE */}
               {current?.date && (
-                <p className="text-sm text-amber-400/60">
+                <p className="text-sm mt-1" style={{ color: wine }}>
                   {current.date}
                 </p>
               )}
 
-              {/* Location */}
-              <span className="inline-block mt-3 text-xs text-amber-400 px-4 py-1 rounded-full bg-amber-500/10">
+              {/* LOCATION */}
+              <span className="inline-block mt-4 text-xs px-4 py-1 rounded-full bg-gray-50 border border-gray-200 text-black">
                 {current?.location}
               </span>
+
             </motion.div>
+
           </AnimatePresence>
 
-          {/* Controls */}
+          {/* CONTROLS */}
           <div className="flex justify-center gap-4 mt-8">
+
             <button
               onClick={prevSlide}
-              className="px-4 py-2 border border-amber-500/30 text-amber-400 rounded-full hover:bg-amber-500/10 transition"
+              className="px-4 py-2 rounded-full border border-gray-200 text-black hover:bg-gray-50 transition"
             >
               Prev
             </button>
 
             <button
               onClick={nextSlide}
-              className="px-4 py-2 border border-amber-500/30 text-amber-400 rounded-full hover:bg-amber-500/10 transition"
+              className="px-4 py-2 rounded-full text-white transition"
+              style={{ backgroundColor: wine }}
             >
               Next
             </button>
+
           </div>
 
         </div>
+
       </div>
     </section>
   );
