@@ -37,7 +37,7 @@ export default function Navbar() {
 >
   <div className="p-2 rounded-xl bg-white border">
     <Image
-      src="/images/LOGO.PNG"
+      src="/images/LOGO1.PNG"
       alt="Logo"
       width={40}
       height={40}
