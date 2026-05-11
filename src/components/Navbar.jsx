@@ -2,6 +2,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from "next/image";
 import { motion, AnimatePresence } from 'framer-motion';
 import { Crown, Menu, X } from 'lucide-react';
 
@@ -29,14 +30,20 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
 
         {/* LOGO */}
-        <motion.a 
-          href="#home"
-          className="flex items-center gap-3"
-          whileHover={{ scale: 1.05 }}
-        >
-          <div className="p-2 rounded-xl bg-white border border-gray-200">
-            <Crown className="w-6 h-6" style={{ color: wine }} />
-          </div>
+        <motion.a
+  href="/"
+  className="flex items-center gap-3"
+  whileHover={{ scale: 1.05 }}
+>
+  <div className="p-2 rounded-xl bg-white border">
+    <Image
+      src="/images/LOGO.PNG"
+      alt="Logo"
+      width={40}
+      height={40}
+      className="object-contain"
+    />
+  </div>
 
           <div className="flex flex-col">
             <span className="text-xl font-bold tracking-tight text-black">

@@ -174,7 +174,7 @@ export default function Destinations() {
 
                   {/* hover description */}
                   <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                    <p className="text-black/70 text-sm">
+                    <p className="text-white text-bold /70 text-sm">
                       {dest.description}
                     </p>
                   </div>
